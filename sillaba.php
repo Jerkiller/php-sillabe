@@ -68,7 +68,7 @@ return $temp;
 /* ritorna una frase senza spazi iniziali/finali e senza spazi multipli */
 function spazio($frase)
 {
-return preg_replace('/\s\s+/', ' ', trim($frase));
+return " ".preg_replace('/\s\s+/', ' ', trim($frase))." ";
 }
 
 
@@ -91,19 +91,19 @@ return preg_replace('/\s\s+/', ' ', trim($frase));
 
 
 
-function uno($frase)
+function dividi_prima_vocale($frase)
 {
 //abo ast
 
-$pattern = "/([aeiou])([bcdfghlmnpqrstvz])([aeiouèéàòùì])/";
+$pattern = "/([aeiouAEIOU])([bcdfghlmnpqrstvz])([aeiouèéàòùì])/";
 $replacement = '$1-$2$3';
 $temp = preg_replace($pattern, $replacement, $frase);
 
-$pattern = "/([aeiou])([bcdfghlmnpqrstvz])([bcdfghlmnpqrstvz])([aeiouèéàòùì])/";
+$pattern = "/([aeiouAEIOU])([bcdfghlmnpqrstvz])([bcdfghlmnpqrstvz])([aeiouèéàòùì])/";
 $replacement = '$1-$2$3$4';
 $temp = preg_replace($pattern, $replacement, $temp);
 
-$pattern = "/([aeiou])([bcdfghlmnpqrstvz])([bcdfghlmnpqrstvz])([lr])([aeiouèéàòùì])/";
+$pattern = "/([aeiouAEIOU])([bcdfghlmnpqrstvz])([bcdfghlmnpqrstvz])([lr])([aeiouèéàòùì])/";
 $replacement = '$1-$2$3$4$5';
 $temp = preg_replace($pattern, $replacement, $temp);
 
@@ -120,16 +120,16 @@ function due($frase)
 {
 
 	//cacodo
-	$pattern = "/([bcdfghlmnpqrstvz])([aeiou])([bcdfghlmnpqrstvz])([aeiouèéàòùì])/";
+	$pattern = "/([bcdfghlmnpqrstvzBCDFGHLMNPQRSTVZ])([aeiou])([bcdfghlmnpqrstvz])([aeiouèéàòùì])/";
 	$replacement = '$1$2-$3$4';
 	$temp = preg_replace($pattern, $replacement, $frase);
 
 	//cacodo
-	$pattern = "/([bcdfghlmnpqrstvz])([aeiou])([bcdfghlmnpqrstvz])([bcdfghlmnpqrstvz])([aeiouèéàòùì])/";
+	$pattern = "/([bcdfghlmnpqrstvzBCDFGHLMNPQRSTVZ])([aeiou])([bcdfghlmnpqrstvz])([bcdfghlmnpqrstvz])([aeiouèéàòùì])/";
 	$replacement = '$1$2-$3$4$5';
 	$temp = preg_replace($pattern, $replacement, $temp);
 
-	$pattern = "/([bcdfghlmnpqrstvz])([aeiou])([bcdfghlmnpqrstvz])([bcdfghlmnpqrstvz])([bcdfghlmnpqrstvz])([aeiouèéàòùì])/";
+	$pattern = "/([bcdfghlmnpqrstvzBCDFGHLMNPQRSTVZ])([aeiou])([bcdfghlmnpqrstvz])([bcdfghlmnpqrstvz])([bcdfghlmnpqrstvz])([aeiouèéàòùì])/";
 	$replacement = '$1$2-$3$4$5$6';
 	$temp = preg_replace($pattern, $replacement, $temp);
 
@@ -139,7 +139,7 @@ function due($frase)
 	$temp = preg_replace($pattern, $replacement, $temp);
 
 	// ...a-bo 
-	$pattern = "/([aeiou])([bcdfghlmnpqrstvz])([aeiouèéàòùì])/";
+	$pattern = "/([aeiouAEIOU])([bcdfghlmnpqrstvz])([aeiouèéàòùì])/";
 	$replacement = '$1-$2$3';
 	$temp = preg_replace($pattern, $replacement, $temp);
 
@@ -151,12 +151,12 @@ function due($frase)
 function tre($frase)
 {
 	//bra-- cri vre
-	$pattern = "/([bcdfgptv])([lr])([aeiou])([a-zèéàòùì])([a-zèéàòùì])/";
+	$pattern = "/([bcdfgptvBCDFGPTV])([lr])([aeiou])([a-zèéàòùì])([a-zèéàòùì])/";
 	$replacement = '$1$2$3-$4$5';
 	$temp = preg_replace($pattern, $replacement, $frase);
 
 	//medio-cre
-	$pattern = "/([aeiou])c([lr])([aeiou])/";
+	$pattern = "/([aeiouAEIOU])c([lr])([aeiou])/";
 	$replacement = '$1-c$2$3';
 	$temp = preg_replace($pattern, $replacement, $temp);
 	return $temp;
@@ -169,7 +169,7 @@ function tre($frase)
 function quattro($frase)
 {
 	//stra spre
-	$pattern = "/([s])([bcdfghlmnpqrstvz]+)([aeiou])([a-z])([a-zèéàòùì])/";
+	$pattern = "/([sS])([bcdfghlmnpqrstvz]+)([aeiou])([a-z])([a-zèéàòùì])/";
 	$replacement = '$1$2$3-$4$5';
 	$temp = preg_replace($pattern, $replacement, $frase);
 
@@ -207,7 +207,7 @@ function sei_bis($frase)
 {
 	$temp=$frase;
 
-	$pattern = "/([a-z])([lnmr])([bcdfglmnpqrstvz])([aeiou])/";
+	$pattern = "/([a-zA-Z])([lnmr])([bcdfglmnpqrstvz])([aeiou])/";
 	$replacement = '$1$2-$3$4';
 	$temp = preg_replace($pattern, $replacement, $temp);
 
@@ -236,11 +236,11 @@ function sette($frase)
 function otto($frase)
 {
 	//AU-guri pIO-lo
-	$pattern = "/([iu])([aeo])([bcdfghlmnpqrstvz])/";
+	$pattern = "/([iuIU])([aeo])([bcdfghlmnpqrstvz])/";
 	$replacement = '$1$2-$3';
 	return preg_replace($patterns, $replacements, $frase);
 
-	$pattern = "/([aeo])([iu])([bcdfghlmnpqrstvz])/";
+	$pattern = "/([aeoAEO])([iu])([bcdfghlmnpqrstvz])/";
 	$replacement = '$1$2-$3';
 	return preg_replace($patterns, $replacements, $temp);
 
@@ -251,7 +251,7 @@ function otto($frase)
 function nove($frase)
 {
 	//pa-olo cia-o
-	$pattern = "/([aeo])([aeoèéàòùì])/";
+	$pattern = "/([aeoAEO])([aeoèéàòùì])/";
 	$replacement = '$1-$2';
 	$temp = preg_replace($pattern, $replacement, $frase);
 
@@ -264,11 +264,11 @@ function nove($frase)
 function trittongo($frase)
 {
 	//trittongo
-	$pattern = "/([aeo])([iu])([aouieèéàòùì])/";
+	$pattern = "/([aeoAEO])([iu])([aouieèéàòùì])/";
 	$replacement = '$1-$2$3';
 	$temp = preg_replace($pattern, $replacement, $frase);
 
-	$pattern = "/([aeoiu])([aouie])([iu])/";
+	$pattern = "/([aeoiuAEIOU])([aouie])([iu])/";
 	$replacement = '$1-$2$3';
 	$temp = preg_replace($pattern, $replacement, $temp);
 
@@ -300,14 +300,13 @@ function trittongo_monosillabo($frase)
 
 
 
-function  pref_rire($frase)
+function pref_rire($temp)
 {
 	//ri - avere  prefisso  esperimental
-	$temp = preg_replace("/ ri([eauio])/", ' ri-$1', $frase);
-	$temp = preg_replace("/ re([eauio])/", ' re-$1', $frase);
+	$temp = preg_replace("/ ri([eauio])/", ' ri-$1', $temp);
+	$temp = preg_replace("/ re([eauio])/", ' re-$1', $temp);
 	return $temp;
 }
-
 
 
 
@@ -394,11 +393,13 @@ return $temp;
 function sillaba($frase){
   $frase = spazio($frase);
   $frase = dividi_doppie_consonanti($frase); //doppie
+  //$frase = dividi_prima_vocale($frase);
+
   $frase = nove($frase);   //pa-olo cia-o
   $frase = sei_bis($frase); // al-to pen-sa
   $frase = due($frase); //ca-cao // bi-nocolo
   $frase = sette($frase); //al-tro en-tro
-  $frase = uno($frase);   // a-tipico u-signolo
+  $frase = dividi_prima_vocale($frase);   // a-tipico u-signolo
   $frase = tre($frase);  //bra cri vre 
   $frase = quattro($frase); // stra spre
   $frase = dividi_iati($frase);
@@ -406,7 +407,8 @@ function sillaba($frase){
   $frase = trittongo_monosillabo($frase);  //trittongo monosillabo (not necessay)
   $frase = pref_rire($frase);  //ri - avere  prefisso  esperimental
   $frase = tredici($frase);  // extra
-  $frase = preg_replace("/ /", "-", $frase);
+  
+  $frase = preg_replace("/ /", "-", trim($frase));
   return explode("-", $frase);
 }
 
