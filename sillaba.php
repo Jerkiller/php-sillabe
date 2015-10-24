@@ -1,7 +1,32 @@
 <?php
 
+
+class phpSillaba{
+
+private $frase="";
+
+function __construct($frase=""){
+	$this->frase=$frase;
+}
+
+function setFrase($frase=""){
+	$this->frase=$frase;
+}
+
+function getFraseSillabata(){
+	return $this->sillaba($this->frase);
+}
+
+function getArraySillabe(){
+	return explode("-",$this->sillaba($this->frase));
+}
+
+
+
+/* METODI PRIVATI */
+
 /* divide gli iati */
-function dividi_iati($frase)
+private function dividi_iati($frase)
 {
 $temp=$frase;
 
@@ -66,7 +91,7 @@ return $temp;
 
 
 /* ritorna una frase senza spazi iniziali/finali e senza spazi multipli */
-function spazio($frase)
+private function spazio($frase)
 {
 return " ".preg_replace('/\s\s+/', ' ', trim($frase))." ";
 }
@@ -91,7 +116,7 @@ return " ".preg_replace('/\s\s+/', ' ', trim($frase))." ";
 
 
 
-function dividi_prima_vocale($frase)
+private function dividi_prima_vocale($frase)
 {
 //abo ast
 
@@ -116,7 +141,7 @@ return $temp;
 
 
 
-function due($frase)
+private function due($frase)
 {
 
 	//cacodo
@@ -148,7 +173,7 @@ function due($frase)
 
 
 
-function tre($frase)
+private function tre($frase)
 {
 	//bra-- cri vre
 	$pattern = "/([bcdfgptvBCDFGPTV])([lr])([aeiou])([a-zèéàòùì])([a-zèéàòùì])/";
@@ -185,7 +210,7 @@ function quattro($frase)
 
 
 /* divide le doppie in una frase o le altre coppie di consonanti che vanno divise */
-function dividi_doppie_consonanti($frase)
+private function dividi_doppie_consonanti($frase)
 {
 	$patterns = array('/ps/','/tm/','/rf/','/lp/','/lz/','/lv/','/rv/','/rd/','/rl/','/nz/','/nc/','/rc/','/rs/','/rn/','/lm/','/lt/','/rm/','/mb/','/nf/','/ms/','/rc/','/rg/','/rt/','/nd/','/ns/','/nt/','/ng/','/mp/','/rp/','/pt/','/cn/','/cq/','/bb/','/cc/','/dd/','/ff/','/gg/','/ll/','/mm/','/nn/','/pp/','/qq/','/rr/','/ss/','/tt/','/vv/','/zz/');
 	$replaces = array('p-s','t-m','r-f','l-p','l-z','l-v','r-v','r-d','r-l','n-z','n-c','r-c','r-s','r-n','l-m','l-t','r-m','m-b','n-f','m-s','r-c','r-g','r-t','n-d','n-s','n-t','n-g','m-p','r-p','p-t','c-n','c-q','b-b','c-c','d-d','f-f','g-g','l-l','m-m','n-n','p-p','q-q','r-r','s-s','t-t','v-v','z-z');
@@ -203,7 +228,7 @@ function dividi_doppie_consonanti($frase)
 
 
 
-function sei_bis($frase)
+private function sei_bis($frase)
 {
 	$temp=$frase;
 
@@ -222,7 +247,7 @@ function sei_bis($frase)
 
 
 
-function sette($frase)
+private function sette($frase)
 {
 	$patterns=array('/rst/','/ntr/','/ltr/','/rtr/','/btr/');
 	$replacements=array('r-st','n-tr','l-tr','r-tr','b-tr');
@@ -233,7 +258,7 @@ function sette($frase)
 
 
 
-function otto($frase)
+private function otto($frase)
 {
 	//AU-guri pIO-lo
 	$pattern = "/([iuIU])([aeo])([bcdfghlmnpqrstvz])/";
@@ -248,7 +273,7 @@ function otto($frase)
 }
 
 
-function nove($frase)
+private function nove($frase)
 {
 	//pa-olo cia-o
 	$pattern = "/([aeoAEO])([aeoèéàòùì])/";
@@ -261,7 +286,7 @@ function nove($frase)
 
 
 
-function trittongo($frase)
+private function trittongo($frase)
 {
 	//trittongo
 	$pattern = "/([aeoAEO])([iu])([aouieèéàòùì])/";
@@ -278,7 +303,7 @@ function trittongo($frase)
 
 
 
-function trittongo_monosillabo($frase)
+private function trittongo_monosillabo($frase)
 {
 	//tritongo monosillabo
 	$pattern = "/([ui])([-])([aeo])([iu])/";
@@ -300,7 +325,7 @@ function trittongo_monosillabo($frase)
 
 
 
-function pref_rire($temp)
+private function pref_rire($temp)
 {
 	//ri - avere  prefisso  esperimental
 	$temp = preg_replace("/ ri([eauio])/", ' ri-$1', $temp);
@@ -313,7 +338,7 @@ function pref_rire($temp)
 
 
 
-function tredici($frase)
+private function tredici($frase)
 {
 /**************************************************************************
 extra rulesssss
@@ -390,30 +415,28 @@ return $temp;
 
 
 
-function sillaba($frase){
-  $frase = spazio($frase);
-  $frase = dividi_doppie_consonanti($frase); //doppie
-  //$frase = dividi_prima_vocale($frase);
+function sillaba(){
+  $frase = $this->spazio($this->frase);
+  $frase = $this->dividi_doppie_consonanti($frase); //doppie
+  //$frase = $this->dividi_prima_vocale($frase);
 
-  $frase = nove($frase);   //pa-olo cia-o
-  $frase = sei_bis($frase); // al-to pen-sa
-  $frase = due($frase); //ca-cao // bi-nocolo
-  $frase = sette($frase); //al-tro en-tro
-  $frase = dividi_prima_vocale($frase);   // a-tipico u-signolo
-  $frase = tre($frase);  //bra cri vre 
-  $frase = quattro($frase); // stra spre
-  $frase = dividi_iati($frase);
-  $frase = trittongo($frase);    // trittongo
-  $frase = trittongo_monosillabo($frase);  //trittongo monosillabo (not necessay)
-  $frase = pref_rire($frase);  //ri - avere  prefisso  esperimental
-  $frase = tredici($frase);  // extra
+  $frase = $this->nove($frase);   //pa-olo cia-o
+  $frase = $this->sei_bis($frase); // al-to pen-sa
+  $frase = $this->due($frase); //ca-cao // bi-nocolo
+  $frase = $this->sette($frase); //al-tro en-tro
+  $frase = $this->dividi_prima_vocale($frase);   // a-tipico u-signolo
+  $frase = $this->tre($frase);  //bra cri vre 
+  $frase = $this->quattro($frase); // stra spre
+  $frase = $this->dividi_iati($frase);
+  $frase = $this->trittongo($frase);    // trittongo
+  $frase = $this->trittongo_monosillabo($frase);  //trittongo monosillabo (not necessay)
+  $frase = $this->pref_rire($frase);  //ri - avere  prefisso  esperimental
+  $frase = $this->tredici($frase);  // extra
   
   $frase = preg_replace("/ /", "-", trim($frase));
-  return explode("-", $frase);
+  return $frase;
 }
 
 
 
-
-
-?>
+}//end of class
