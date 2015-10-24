@@ -16,8 +16,9 @@ $testo4="Solo i poveri riescono ad afferrare il senso della vita, i ricchi posso
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Esempio di sillabazione in PHP</title>
 	<style>
-		html{background-color: #EEE; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; color: #222;}
-		body{width:80%;margin:20px auto; background-color: #DDF; padding:2em; border-radius: 2px; border:1px solid #CCC;}
+		html{background-color:#EEE; font-family:'Century Gothic', CenturyGothic, AppleGothic, sans-serif; color:#222;}
+		body{width:80%;margin:20px auto;background-color:#DDF; padding:2em; border-radius:2px; border:1px solid #CCC;}
+		span.labeltext{min-width:160px; font-weight:bold; display: inline-block;}
 	</style>
 </head>
 <body>
@@ -47,8 +48,11 @@ $sillabatore->setFrase($testo3);
 $arraySillabe=$sillabatore->getArraySillabe();
 //Stampo ogni sillaba separata da uno spazio
 echo implode($arraySillabe,"&nbsp;")."<br>";
-//Conto le sillabe
-echo "Sillabe totali: ".count($arraySillabe);
-
+//Altri metodi aggiuntivi
+echo "<span class='labeltext'>Sillabe totali:</span>"		.$sillabatore->getNumeroSillabe()."<br>";
+echo "<span class='labeltext'>Vocali totali:</span>"		.$sillabatore->getNumeroVocali()."<br>";
+echo "<span class='labeltext'>Consonanti totali:</span>"	.$sillabatore->getNumeroConsonanti()."<br>";
+echo "<span class='labeltext'>Spazi totali:</span>"			.$sillabatore->getNumeroSpazi()."<br>";
+echo "<span class='labeltext'>Lettere totali:</span>"		.$sillabatore->getNumeroLettere()."<br>";
 ?>
 </body></html>

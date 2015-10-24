@@ -6,11 +6,15 @@ class phpSillaba{
 private $frase="";
 
 function __construct($frase=""){
-	$this->frase=$frase;
+	if(strlen($frase)<10000)
+		$this->frase=$frase;
+	else die("Errore, testo oltre i 10000 caratteri.");
 }
 
 function setFrase($frase=""){
-	$this->frase=$frase;
+	if(strlen($frase)<10000)
+		$this->frase=$frase;
+	else die("Errore, testo oltre i 10000 caratteri.");
 }
 
 function getFraseSillabata(){
@@ -21,6 +25,27 @@ function getArraySillabe(){
 	return explode("-",$this->sillaba($this->frase));
 }
 
+function getNumeroVocali(){
+	$matches=array();
+	preg_match_all("/[aeiouàèéìòù]/", strtolower($this->frase), $matches);
+	return count($matches[0]);
+}
+function getNumeroConsonanti(){
+	$matches=array();
+	preg_match_all("/[bcdfghjklmnpqrstvwxyz]/", strtolower($this->frase), $matches);
+	return count($matches[0]);
+}
+function getNumeroSpazi(){
+	$matches=array();
+	preg_match_all("/\s/", strtolower($this->frase), $matches);
+	return count($matches[0]);
+}
+function getNumeroLettere(){
+	return strlen($this->frase);
+}
+function getNumeroSillabe(){
+	return count($this->getArraySillabe());
+}
 
 
 /* METODI PRIVATI */
